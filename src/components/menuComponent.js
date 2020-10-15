@@ -1,53 +1,20 @@
 import React from 'react';
-import DishDetail from './dishDetailComponent'
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
+import DishDetail from './dishDetailComponent';
+import {Link} from 'react-router-dom';
+import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 
 
-    // constructor(props){
-    //     super(props);
-    //     this.state={
+   
 
-    //     }  
-    // }
-    
-    
-    
-    // function renderDish(dish){
-    //     console.log("djnkjak", this.props);
-        
-    //     if(dish){
-    //         console.log("dish is being rendered");
-            
-    //         return(
-    //             <div>
-    //             <Card>
-    //             <CardImg top src={dish.image} alt={dish.name} />
-    //             <CardBody>
-    //               <CardTitle>{dish.name}</CardTitle>
-    //               <CardText>{dish.description}</CardText>
-    //             </CardBody>
-    //         </Card>
-            
-    //         </div>
-            
-    //         )
-
-    //     }
-    //     else{
-    //         return (
-    //             <div></div>
-    //         )
-    //     }
-    // }
-
-   function RenderMenuItem({dish,onClick}){
+   function RenderMenuItem({dish}){
        return(
-        <Card key={dish.id}
-        onClick={() => onClick(dish.id)}>
+        <Card>
+            <Link to={`/menu/${dish.id}`} >
         <CardImg width="100%" src={dish.image} alt={dish.name} />
         <CardImgOverlay>
             <CardTitle>{dish.name}</CardTitle>
         </CardImgOverlay>
+        </Link>
       </Card>
        )
 
@@ -58,7 +25,7 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
         return (
             
             <div  className="col-12 col-md-5 m-1">
-                <RenderMenuItem dish={dish} onClick={props.onClick}/>
+                <RenderMenuItem dish={dish} />
               
               
             </div>
@@ -67,6 +34,16 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
    
     return(
         <div className="container">
+            <div className="row">
+                <Breadcrumb>
+                <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                <BreadcrumbItem active> Menu</BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h3> Menu</h3>
+                    <hr/>
+                </div>
+            </div>
         <div className="row">
             {menu}
         </div>
