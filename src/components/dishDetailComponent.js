@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
- import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
-import {Link} from 'react-router-dom'
+ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button} from 'reactstrap';
+import {Link} from 'react-router-dom';
+import Comments from './CommentForm';
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
+
 
 
 function RenderDish({dish}){
@@ -43,7 +46,22 @@ function RenderComments({comments}){
   )
 }
 
+
+
+
 const DishDetail=(props)=>{
+
+  function handleClick(e) {
+
+
+    // <Route path="/comments" component={Comments}/>
+
+    return(    
+    <Comments isClicked="true"/>
+    )
+       
+  }
+ 
   if(props.dish!=null)
   return (
     <div className="container">
@@ -66,6 +84,10 @@ const DishDetail=(props)=>{
             <RenderComments comments={props.comments} />
         </div>
     </div>
+    <div className="row">
+    <Button color="primary" onClick={handleClick}>Add Comments</Button>
+      </div>
+
     </div>
 );
 else
