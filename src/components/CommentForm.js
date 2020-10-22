@@ -15,7 +15,8 @@ class Comments extends Component{
     constructor(props){
         super(props);   
         this.state={
-            isModalOpen:false
+            isModalOpen:false,
+            isNavOpen:false
         }
 
 
@@ -31,6 +32,7 @@ class Comments extends Component{
     handleForm(values){
         this.toggleModal();
         console.log("current state is:"+JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
 
 
     }
@@ -49,13 +51,13 @@ render(){
 
 return(
 
-    
-    
+    <div>
+    <Button color="primary" onClick={this.toggleModal}>Add Comments</Button>
     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
     <ModalHeader toggle={this.toggleModal}> Submit Comment</ModalHeader>
     <ModalBody>
 
-        <LocalForm onSubmit={(values)=>{this.handleSubmit(values)}}>
+        <LocalForm onSubmit={(values)=>{this.handleForm(values)}}>
         <Row className="form-group">
                                 <Label htmlFor="yourname" md={2}>your Name</Label>
                                 <Col md={10}>
@@ -111,6 +113,7 @@ return(
             </LocalForm>
     </ModalBody>
 </Modal>
+</div>
                                     
 
         )
