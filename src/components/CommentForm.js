@@ -30,9 +30,10 @@ class Comments extends Component{
 
     
     handleForm(values){
+        console.log(this.props.dishId, parseInt(values.rating), values.yourname, values.comment);
         this.toggleModal();
-        console.log("current state is:"+JSON.stringify(values));
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+        // console.log("current state is:"+JSON.stringify(values));
+        this.props.postComment(this.props.dishId, parseInt(values.rating), values.yourname, values.comment)
 
 
     }

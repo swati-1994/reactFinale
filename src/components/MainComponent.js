@@ -9,11 +9,12 @@ import Contact from "./ContactComponent";
 import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
 import Home from './HomeComponent';
 import {connect} from 'react-redux';
-import {addComment,fetchDishes, fetchComments, fetchPromos} from '../redux/ActionCreators';
+import {postComment,fetchDishes, fetchComments, fetchPromos} from '../redux/ActionCreators';
 import {actions} from 'react-redux-form';
 // import {COMMENTS} from "../shared/comments";
 // import {LEADERS} from "../shared/leaders";
 // import {PROMOTIONS} from "../shared/promotions";
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 
 const mapStateToProps=state=>{
@@ -27,7 +28,7 @@ const mapStateToProps=state=>{
 
 const mapDispatchToProps=(dispatch)=>({
 
-  addComment:(dishId, rating,author, comment)=>dispatch(addComment(dishId, rating,author, comment)),
+  postComment:(dishId, rating,author, comment)=>dispatch(postComment(dishId, rating,author, comment)),
   fetchDishes:()=>{dispatch(fetchDishes())},
   resetFeedbackForm:()=>{dispatch(actions.reset('feedback'))},
   fetchComments:()=>{dispatch(fetchComments())},
@@ -97,7 +98,7 @@ render() {
             isLoading={this.props.dishes.isLoading}
             errMess={this.props.dishes.errMess}
             comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
-            addComment={this.props.addComment}
+            postComment={this.props.postComment}
             commentsErrMess={this.props.comments.errMess}
           />
     );
@@ -106,6 +107,8 @@ render() {
     return (
       <div>
         <Header/>
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page">
         <Switch>
 
            
@@ -117,6 +120,8 @@ render() {
             <Redirect to="/home" />
        
         </Switch>
+        </CSSTransition>
+        </TransitionGroup>
         <Footer />
       </div>
     );
